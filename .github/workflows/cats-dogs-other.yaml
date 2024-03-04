@@ -6,6 +6,8 @@ on:
 
 jobs:
   train:
+    batch size: ${{vars.BATCH_SIZE}}
+    epochs: ${{vars.EPOCHS}}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -21,6 +23,8 @@ jobs:
           pip install -r ./cats_dogs_other/label/requirements.txt
           python -m unittest
           echo ${{vars.MLFLOW_S3_ENDPOINT_URL}}
+          batch_size = int(input("Veuillez saisir le batch size : "))
+          epochs = int(input("Veuillez saisir le nombre d'epochs souhaité : "))
       - name: Install mlflow
         run: |
           pip install mlflow[extras]

@@ -28,13 +28,13 @@ def train_and_evaluate_model(train_dir: str,
     train_it = datagen.flow_from_directory(
         train_dir,
         class_mode="binary",
-        batch_size=batch_size,
+        batch_size=${BATCH_SIZE},
         target_size=(224, 224)
     )
     validation_it = datagen.flow_from_directory(
         evaluate_dir,
         class_mode="binary",
-        batch_size=batch_size,
+        batch_size=${BATCH_SIZE},
         target_size=(224, 224)
     )
     # fit model
@@ -43,14 +43,14 @@ def train_and_evaluate_model(train_dir: str,
         steps_per_epoch=len(train_it),
         validation_data=validation_it,
         validation_steps=len(validation_it),
-        epochs=epochs,
+        epochs=${EPOCHS},
         verbose=1,
     )
     # test model
     evaluate_it = datagen.flow_from_directory(
         test_dir,
         class_mode="binary",
-        batch_size=batch_size,
+        batch_size=${BATCH_SIZE},
         target_size=(224, 224)
     )
     _, acc = model.evaluate_generator(evaluate_it, steps=len(evaluate_it), verbose=1)
